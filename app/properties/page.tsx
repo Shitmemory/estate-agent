@@ -1,14 +1,30 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Building2, Phone, Search, Filter, MapPin, Bed, Bath, Car } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Image from "next/image"
-import Link from "next/link"
+import { useState } from "react";
+import {
+  Building2,
+  Phone,
+  Search,
+  Filter,
+  MapPin,
+  Bed,
+  Bath,
+  Car,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Image from "next/image";
+import Link from "next/link";
+import { Navbar } from "@/components/navbar";
 
 const properties = [
   {
@@ -77,67 +93,39 @@ const properties = [
     parking: 1,
     image: "/placeholder.svg?height=200&width=300",
   },
-]
+];
 
 export default function PropertiesPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [propertyType, setPropertyType] = useState("all")
-  const [priceRange, setPriceRange] = useState("all")
-  const [bedrooms, setBedrooms] = useState("all")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [propertyType, setPropertyType] = useState("all");
+  const [priceRange, setPriceRange] = useState("all");
+  const [bedrooms, setBedrooms] = useState("all");
 
   const filteredProperties = properties.filter((property) => {
     const matchesSearch =
       property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      property.location.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesType = propertyType === "all" || property.type === propertyType
-    const matchesBedrooms = bedrooms === "all" || property.beds.toString() === bedrooms
+      property.location.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesType =
+      propertyType === "all" || property.type === propertyType;
+    const matchesBedrooms =
+      bedrooms === "all" || property.beds.toString() === bedrooms;
 
-    return matchesSearch && matchesType && matchesBedrooms
-  })
+    return matchesSearch && matchesType && matchesBedrooms;
+  });
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-blue-800 text-white shadow-lg">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3">
-              <Building2 className="h-8 w-8" />
-              <div>
-                <h1 className="text-2xl font-bold">CAPITAL</h1>
-                <p className="text-sm text-blue-100">Letting & Estate Agents</p>
-              </div>
-            </Link>
-            <nav className="hidden md:flex space-x-6">
-              <Link href="/services" className="hover:text-blue-200 transition-colors">
-                Services
-              </Link>
-              <Link href="/properties" className="hover:text-blue-200 transition-colors text-blue-200">
-                Properties
-              </Link>
-              <Link href="/about" className="hover:text-blue-200 transition-colors">
-                About
-              </Link>
-              <Link href="/contact" className="hover:text-blue-200 transition-colors">
-                Contact
-              </Link>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Phone className="h-4 w-4" />
-              <a href="tel:02085685680" className="text-sm hover:text-blue-200">
-                020 8568 5680
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
-
+      <Navbar />
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-800 to-blue-900 text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Find Your Perfect Property</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Find Your Perfect Property
+          </h2>
           <p className="text-lg text-blue-100 max-w-2xl mx-auto">
-            Browse our extensive collection of properties for sale and rent in London
+            Browse our extensive collection of properties for sale and rent in
+            London
           </p>
         </div>
       </section>
@@ -202,12 +190,17 @@ export default function PropertiesPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900">{filteredProperties.length} Properties Found</h3>
+            <h3 className="text-2xl font-bold text-gray-900">
+              {filteredProperties.length} Properties Found
+            </h3>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProperties.map((property) => (
-              <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={property.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <div className="relative h-48 bg-gray-200">
                   <Image
                     src={property.image || "/placeholder.svg"}
@@ -220,7 +213,9 @@ export default function PropertiesPage() {
                   </Badge>
                 </div>
                 <CardContent className="p-6">
-                  <h4 className="font-semibold text-lg mb-2">{property.title}</h4>
+                  <h4 className="font-semibold text-lg mb-2">
+                    {property.title}
+                  </h4>
                   <div className="flex items-center text-gray-600 mb-3">
                     <MapPin className="h-4 w-4 mr-1" />
                     <span className="text-sm">{property.location}</span>
@@ -244,7 +239,9 @@ export default function PropertiesPage() {
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-xl md:text-2xl font-bold text-blue-800">{property.price}</span>
+                    <span className="text-xl md:text-2xl font-bold text-blue-800">
+                      {property.price}
+                    </span>
                     <Button
                       variant="outline"
                       size="sm"
@@ -260,13 +257,15 @@ export default function PropertiesPage() {
 
           {filteredProperties.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-600 text-lg">No properties found matching your criteria.</p>
+              <p className="text-gray-600 text-lg">
+                No properties found matching your criteria.
+              </p>
               <Button
                 onClick={() => {
-                  setSearchTerm("")
-                  setPropertyType("all")
-                  setPriceRange("all")
-                  setBedrooms("all")
+                  setSearchTerm("");
+                  setPropertyType("all");
+                  setPriceRange("all");
+                  setBedrooms("all");
                 }}
                 className="mt-4 bg-blue-800 hover:bg-blue-900"
               >
@@ -287,7 +286,8 @@ export default function PropertiesPage() {
                 <span className="font-bold text-lg">CAPITAL</span>
               </div>
               <p className="text-blue-200 text-sm">
-                The property professionals - your trusted partner for all property needs in London.
+                The property professionals - your trusted partner for all
+                property needs in London.
               </p>
             </div>
             <div>
@@ -338,10 +338,12 @@ export default function PropertiesPage() {
             </div>
           </div>
           <div className="border-t border-blue-800 mt-8 pt-8 text-center text-sm text-blue-200">
-            <p>&copy; 2025 CAPITAL Letting & Estate Agents. All rights reserved.</p>
+            <p>
+              &copy; 2025 CAPITAL Letting & Estate Agents. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
     </div>
-  )
+  );
 }

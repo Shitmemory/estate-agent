@@ -240,7 +240,7 @@ export default function ServicesPage() {
                     </div>
                   </div>
                   <Button
-                    className="w-full mt-4 bg-blue-800 hover:bg-blue-900"
+                    className="w-full bg-blue-800 hover:bg-blue-900"
                     onClick={() =>
                       document
                         .getElementById(service.id)

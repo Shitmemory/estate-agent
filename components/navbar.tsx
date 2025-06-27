@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Building2, Phone } from "lucide-react";
 import Link from "next/link";
 
@@ -12,6 +13,8 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const pathname = usePathname();
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -85,7 +88,11 @@ export function Navbar() {
             <Link
               key={href}
               href={href}
-              className="hover:text-blue-200 transition-colors text-blue-200"
+              className={`transition-colors text-lg ${
+                pathname.startsWith(href)
+                  ? "text-blue-200 font-semibold border-b-2 border-blue-200 pb-1"
+                  : "text-white hover:text-blue-200"
+              }`}
             >
               {label}
             </Link>
